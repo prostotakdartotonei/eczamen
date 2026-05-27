@@ -10,15 +10,16 @@
   <main class="page">
     <section class="auth">
       <div class="tabs">
-        <button class="active" onclick="showForm('login')">Вход</button>
-        <button onclick="showForm('register')">Регистрация</button>
+        <button class="active btn-auth" onclick="showForm('login')">Вход</button>
+        <button id="reg" class="btn-auth" onclick="showForm('register')">Регистрация</button>
       </div>
 
       <form id="login" class="form active">
         <h2>Вход</h2>
         <input name="login" placeholder="Логин" required>
         <input name="password" type="password" placeholder="Пароль" required>
-        <button type="submit">Войти</button>
+        <button class="active btn-auth" type="submit">Войти</button>
+        <button class="btn-reg" onclick="showForm('register')">Ещё не зарегестрированы? Регестрация</button>
       </form>
 
       <form id="register" class="form">
@@ -36,10 +37,19 @@
 
   <script>
     function showForm(id) {
-      document.querySelectorAll('.form').forEach(form => form.classList.remove('active'));
-      document.querySelectorAll('.tabs button').forEach(btn => btn.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
-      event.target.classList.add('active');
+        if (id == "login") {
+            document.querySelectorAll('.form').forEach(form => form.classList.remove('active'));
+            document.querySelectorAll('.tabs button').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            event.target.classList.add('active');
+        }
+        if (id == "register") {
+            document.querySelectorAll('.form').forEach(form => form.classList.remove('active'));
+            document.querySelectorAll('.active').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            document.getElementById("reg").classList.add('active');
+            event.target.classList.add('active');
+        }
     }
   </script>
 </body>
