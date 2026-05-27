@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Auth</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="page">
+    <section class="auth">
+      <div class="tabs">
+        <button class="active" onclick="showForm('login')">Вход</button>
+        <button onclick="showForm('register')">Регистрация</button>
+      </div>
+
+      <form id="login" class="form active">
+        <h2>Вход</h2>
+        <input name="login" placeholder="Логин" required>
+        <input name="password" type="password" placeholder="Пароль" required>
+        <button type="submit">Войти</button>
+      </form>
+
+      <form id="register" class="form">
+        <h2>Регистрация</h2>
+        <input name="login" placeholder="Логин" required>
+        <input name="password" type="password" placeholder="Пароль" required>
+        <input name="Fname" type="text" placeholder="ФИО" required>
+        <input name="date" type="date" placeholder="дата рождения" required>
+        <input name="number" type="number" placeholder="номер телефона" required>
+        <input name="email" type="email" placeholder="email" required>
+        <button type="submit">Создать аккаунт</button>
+      </form>
+    </section>
+  </main>
+
+  <script>
+    function showForm(id) {
+      document.querySelectorAll('.form').forEach(form => form.classList.remove('active'));
+      document.querySelectorAll('.tabs button').forEach(btn => btn.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      event.target.classList.add('active');
+    }
+  </script>
+</body>
+</html>
