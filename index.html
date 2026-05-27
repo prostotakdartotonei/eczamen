@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Водить.РФ</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="page">
+    <section class="auth">
+      <div class="tabs">
+        <button class="active btn_auth" onclick="showForm('login')">Вход</button>
+        <button class="btn_auth" onclick="showForm('register')">Регистрация</button>
+      </div>
+
+      <form id="login" class="form active" onsubmit="handleLogin(event)">
+        <h2>Вход</h2>
+        <input name="login" placeholder="Логин" required>
+        <input name="password" type="password" placeholder="Пароль" required>
+        <div id="login-error" class="error-message"></div>
+        <button class="btn_auth" type="submit">Войти</button>
+        <button type="button" class="btn-reg" onclick="showForm('register')">Ещё не зарегистрированы? Регистрация</button>
+      </form>
+
+      <form id="register" class="form" onsubmit="handleRegister(event)">
+        <h2>Регистрация</h2>
+        <input name="login" placeholder="Логин" required>
+        <input name="password" type="password" placeholder="Пароль" required>
+        <input name="Fname" type="text" placeholder="ФИО" required>
+        <input name="date" type="date" placeholder="Дата рождения" required>
+        <input name="number" type="number" placeholder="Номер телефона" required>
+        <input name="email" type="email" placeholder="Email" required>
+        <div id="register-error" class="error-message"></div>
+        <button class="btn_auth" type="submit">Создать аккаунт</button>
+      </form>
+    </section>
+
+  <script>
+
+    function showForm(id) {
+      document.querySelectorAll('.form').forEach(form => form.classList.remove('active'));
+      document.querySelectorAll('.tabs button').forEach(btn => btn.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      event.target.classList.add('active');
+    }
+
+    async function handleLogin(event) {
+      event.preventDefault();
+      const formData = new FormData(event.target);
+      const loginData = {
+        login: formData.get('login'),
+        password: formData.get('password')
+      };
+
+      try {
+        const response = await fetch('/api/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(loginData)
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+          alert('Успешный вход! Добро пожаловать, ' + result.user.login);
+          window.location.href = '/slider.html';
+        } else {
+          document.getElementById('login-error').textContent = result.error;
+        }
+      } catch (error) {
+        document.getElementById('login-error').textContent = 'Ошибка сети';
+      }
+    }
+
+    async function handleRegister(event) {
+      event.preventDefault();
+      const formData = new FormData(event.target);
+      const registerData = {
+        login: formData.get('login'),
+        password: formData.get('password'),
+        Fname: formData.get('Fname'),
+        date: formData.get('date'),
+        number: formData.get('number'),
+        email: formData.get('email')
+      };
+
+      try {
+        const response = await fetch('/api/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(registerData)
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+          alert('Регистрация успешна! Теперь вы можете войти.');
+          showForm('login');
+        } else {
+          document.getElementById('register-error').textContent = result.error;
+        }
+      } catch (error) {
+        document.getElementById('register-error').textContent = 'Ошибка сети';
+      }
+    }
+  </script>
+</body>
+</html>

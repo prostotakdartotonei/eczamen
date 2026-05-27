@@ -36,7 +36,7 @@ body {
 .form.active { 
     display: block; 
 }
-input, button { 
+input { 
     width: 100%; 
     padding: 12px; 
     margin-top: 10px; 
@@ -46,18 +46,54 @@ input, button {
     border: 0; 
     background: #2563eb; 
     color: white; 
-    border-radius: 6px; }
-.btn-reg {
-    
+    border-radius: 6px; 
+    width: 100%; 
+    padding: 12px; 
+    margin-top: 10px; 
+    font-size: 16px; 
 }
-
 .tabs button { 
     background: #e5e7eb;
-     color: #111827; 
-    }
+        color: #111827; 
+}
 .tabs button.active { 
     background: #2563eb; 
     color: white; 
+}
+
+.slider { 
+    flex: 1; 
+    position: relative; 
+    overflow: hidden; 
+    width: 700px;
+    height: 400px;
+    
+}
+#sliderImage { 
+    width: 100%; 
+    object-fit: cover;
+}
+.slider-nav { 
+    position: absolute; 
+    top: 50%; 
+    transform: translateY(-50%); 
+    background: rgba(255,255,255,0.7); 
+    border: none; 
+    padding: 15px; 
+    cursor: pointer; 
+}
+.prev { 
+    left: 20px; 
+}
+.next { 
+    right: 40px; 
+}
+
+.footer {
+    width: 100%;
+    background-color: #007BFF;
+    padding: 15px;
+    color: #ffffff;
 }
 @media (max-width: 390px) {
     .page { 
